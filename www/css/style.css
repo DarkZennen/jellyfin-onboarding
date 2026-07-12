@@ -1,0 +1,122 @@
+/* ===========================================================
+ *  ThatOneCloud
+ *  Version: 0.1.0
+ = *========================================================== */
+
+:root{
+
+    --background:#09090B;
+    --card:#18181B;
+    --border:#27272A;
+
+    --primary:#7C3AED;
+    --primaryHover:#8B5CF6;
+
+    --text:#FAFAFA;
+    --secondary:#A1A1AA;
+
+}
+
+*{
+
+    box-sizing:border-box;
+
+}
+
+body{
+
+    margin:0;
+
+    background:
+    radial-gradient(circle at top,#7C3AED22,transparent 40%),
+    var(--background);
+
+    color:var(--text);
+
+    font-family:Inter,system-ui,sans-serif;
+
+}
+
+.glass{
+
+    background:rgba(24,24,27,.85);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid var(--border);
+
+    border-radius:28px;
+
+    padding:60px;
+
+    box-shadow:
+
+    0 20px 80px rgba(0,0,0,.45);
+
+}
+
+.logo{
+
+    width:120px;
+
+    margin-bottom:25px;
+
+}
+
+.display-2{
+
+    font-weight:800;
+
+}
+
+.lead{
+
+    color:var(--secondary)!important;
+
+}
+
+.btn{
+
+    border-radius:14px;
+
+    transition:.25s;
+
+    padding:16px;
+
+    font-size:1.1rem;
+
+}
+
+.btn-primary{
+
+    background:var(--primary);
+
+    border:none;
+
+}
+
+.btn-primary:hover{
+
+    background:var(--primaryHover);
+
+    transform:translateY(-3px);
+
+}
+
+.btn-outline-light:hover{
+
+    transform:translateY(-3px);
+
+}
+
+footer{
+
+    color:#666;
+
+    margin-top:40px;
+
+    text-align:center;
+
+    font-size:.9rem;
+
+}
