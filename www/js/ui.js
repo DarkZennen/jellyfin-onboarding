@@ -8,19 +8,15 @@ const UI = {
 
         button.onclick = () => {
 
-            // Show loading screen
             Router.show("loading");
 
-            // Fake loading animation
             setTimeout(() => {
 
-                const device = Detect.getDevice();
+                Detect.getDevice();
 
-                const app = document.getElementById("app");
+                AppState.currentStep = 2;
 
-                app.innerHTML = Pages.device(device);
-
-                UI.bindContinue(device);
+                Router.show("device");
 
             }, 1500);
 
@@ -28,7 +24,7 @@ const UI = {
 
     },
 
-    bindContinue(device) {
+    bindDevice() {
 
         const button = document.getElementById("continueButton");
 
@@ -36,24 +32,140 @@ const UI = {
 
         button.onclick = () => {
 
-            const app=document.getElementById("app");
-app.innerHTML=`
-<div class="card fade">
-<div class="progress">
-<div class="progress-track">
-<div class="dot active"></div><div class="dot active"></div><div class="dot active"></div><div class="dot"></div><div class="dot"></div>
-</div>
-<div class="progress-label">Step 3 of 5</div>
-</div>
-<h2>📦 Install Jellyfin</h2>
-<p class="description">Next we'll help you install Jellyfin on your device.</p>
-<button>Coming Next →</button>
-</div>`;
+            AppState.currentStep = 3;
 
-            // We'll replace this with the install pages
-            // in the next sprint.
+            Router.show("install");
 
         };
+
+    },
+
+    bindInstall() {
+
+        const options = document.querySelectorAll(".install-option");
+
+        options.forEach(option => {
+
+            option.onclick = () => {
+
+                options.forEach(o => o.classList.remove("selected"));
+
+                option.classList.add("selected");
+
+                AppState.installMethod = option.dataset.method;
+
+                if (option.dataset.method === "app") {
+
+                    const link = CONFIG.installLinks[AppState.device.id]
+                        || CONFIG.installLinks.browser;
+
+                    if (link && link.url) {
+
+                        window.open(link.url, "_blank");
+
+                    }
+
+                }
+
+            };
+
+        });
+
+        const button = document.getElementById("continueInstall");
+
+        if (!button) return;
+
+        button.onclick = () => {
+
+            if (!AppState.installMethod) {
+
+                alert("Please choose an installation method.");
+
+                return;
+
+            }
+
+            AppState.currentStep = 4;
+
+            Router.show("server");
+
+        };
+
+    },
+
+    bindServer() {
+
+        const copyBtn = document.getElementById("copyServerUrl");
+
+        if (copyBtn) {
+
+            copyBtn.onclick = () => {
+
+                navigator.clipboard.writeText(CONFIG.serverUrl).then(() => {
+
+                    copyBtn.textContent = "Copied!";
+
+                    setTimeout(() => { copyBtn.textContent = "Copy"; }, 1500);
+
+                }).catch(() => {
+
+                    copyBtn.textContent = "Couldn't copy";
+
+                    setTimeout(() => { copyBtn.textContent = "Copy"; }, 1500);
+
+                });
+
+            };
+
+        }
+
+        const openBtn = document.getElementById("openServerButton");
+
+        if (openBtn) {
+
+            openBtn.onclick = () => window.open(CONFIG.serverUrl, "_blank");
+
+        }
+
+        const continueBtn = document.getElementById("continueServer");
+
+        if (continueBtn) {
+
+            continueBtn.onclick = () => {
+
+                AppState.currentStep = 5;
+
+                Router.show("finished");
+
+            };
+
+        }
+
+    },
+
+    bindFinished() {
+
+        const openBtn = document.getElementById("openFinishedButton");
+
+        if (openBtn) {
+
+            openBtn.onclick = () => window.open(CONFIG.serverUrl, "_blank");
+
+        }
+
+        const restartBtn = document.getElementById("restartButton");
+
+        if (restartBtn) {
+
+            restartBtn.onclick = () => {
+
+                AppState.reset();
+
+                Router.show("welcome");
+
+            };
+
+        }
 
     }
 
