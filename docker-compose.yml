@@ -1,0 +1,22 @@
+services:
+  thatonecloud:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: thatonecloud
+    restart: unless-stopped
+    networks:
+      - proxynet
+    labels:
+      - "traefik.enable=true"
+
+      - "traefik.http.routers.thatonecloud.rule=Host(`watch.thatonecloud.com`)"
+      - "traefik.http.routers.thatonecloud.entryPoints=https"
+      - "traefik.http.routers.thatonecloud.tls=true"
+      - "traefik.http.routers.thatonecloud.tls.certresolver=letsencrypt"
+
+      - "traefik.http.services.thatonecloud.loadbalancer.server.port=80"
+
+networks:
+  proxynet:
+    external: true
