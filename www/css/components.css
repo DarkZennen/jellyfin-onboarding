@@ -1,0 +1,428 @@
+/* ==========================================================
+   ThatOneCloud Components v2
+========================================================== */
+
+.card{
+
+    position:relative;
+
+    width:min(92vw,720px);
+
+    padding:70px;
+
+    border-radius:34px;
+
+    background:
+        rgba(18,18,24,.72);
+
+    backdrop-filter:blur(30px);
+
+    border:1px solid rgba(255,255,255,.05);
+
+    box-shadow:
+        0 25px 80px rgba(0,0,0,.55),
+        0 0 80px rgba(124,58,237,.08);
+
+    overflow:hidden;
+
+    transition:
+        transform .35s ease,
+        box-shadow .35s ease;
+
+}
+
+/* Purple glow behind card */
+
+.card::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:420px;
+    height:420px;
+
+    left:50%;
+    top:50%;
+
+    transform:
+        translate(-50%,-50%);
+
+    background:
+
+        radial-gradient(
+            circle,
+            rgba(124,58,237,.18),
+            transparent 70%
+        );
+
+    filter:blur(40px);
+
+    pointer-events:none;
+
+    animation:
+        breatheGlow 8s ease-in-out infinite;
+
+}
+
+@keyframes breatheGlow{
+
+0%,100%{
+
+opacity:.45;
+transform:
+translate(-50%,-50%) scale(1);
+
+}
+
+50%{
+
+opacity:.9;
+transform:
+translate(-50%,-50%) scale(1.08);
+
+}
+
+}
+
+.card:hover{
+
+transform:
+translateY(-8px);
+
+box-shadow:
+0 45px 120px rgba(0,0,0,.65),
+0 0 140px rgba(124,58,237,.18);
+
+}
+
+/* ---------------- Logo ---------------- */
+
+.logo{
+
+display:block;
+
+width:86px;
+
+margin:auto;
+
+margin-bottom:34px;
+
+position:relative;
+
+animation:
+floatLogo 7s ease-in-out infinite;
+
+filter:
+drop-shadow(0 0 20px rgba(124,58,237,.25));
+
+}
+
+@keyframes floatLogo{
+
+0%,100%{
+
+transform:
+translateY(0);
+
+}
+
+50%{
+
+transform:
+translateY(-8px);
+
+}
+
+}
+
+/* ---------------- Typography ---------------- */
+
+.card h1{
+
+font-size:4rem;
+
+font-weight:900;
+
+line-height:1;
+
+letter-spacing:-2px;
+
+margin-bottom:24px;
+
+animation:
+fadeUp .7s ease;
+
+}
+
+.subtitle{
+
+font-size:1.25rem;
+
+font-weight:600;
+
+color:white;
+
+margin-bottom:18px;
+
+animation:
+fadeUp .8s ease;
+
+}
+
+.description{
+
+color:#9ca3af;
+
+font-size:1rem;
+
+line-height:1.8;
+
+max-width:520px;
+
+margin:auto;
+
+animation:
+fadeUp .9s ease;
+
+}
+
+/* ---------------- Button ---------------- */
+
+button{
+
+margin-top:42px;
+
+width:260px;
+
+padding:18px;
+
+border:none;
+
+border-radius:18px;
+
+cursor:pointer;
+
+font-size:1rem;
+
+font-weight:700;
+
+color:white;
+
+background:
+
+linear-gradient(
+90deg,
+#7c3aed,
+#8b5cf6);
+
+box-shadow:
+
+0 0 35px rgba(124,58,237,.35);
+
+transition:
+all .25s ease;
+
+animation:
+pulseButton 4s ease infinite;
+
+}
+
+button:hover{
+
+transform:
+translateY(-4px)
+scale(1.04);
+
+box-shadow:
+0 0 50px rgba(124,58,237,.55);
+
+}
+
+@keyframes pulseButton{
+
+0%,100%{
+
+box-shadow:
+0 0 25px rgba(124,58,237,.30);
+
+}
+
+50%{
+
+box-shadow:
+0 0 45px rgba(124,58,237,.55);
+
+}
+
+}
+
+/* ---------------- Supported Devices ---------------- */
+
+.supported{
+
+margin-top:36px;
+
+animation:
+fadeUp 1s ease;
+
+}
+
+.supported-title{
+
+font-size:.72rem;
+
+letter-spacing:4px;
+
+text-transform:uppercase;
+
+color:#7b7b86;
+
+margin-bottom:18px;
+
+}
+
+.device-grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(4,1fr);
+
+gap:10px;
+
+}
+
+.device-grid span{
+
+padding:12px;
+
+border-radius:12px;
+
+background:
+rgba(255,255,255,.03);
+
+border:
+1px solid rgba(255,255,255,.04);
+
+transition:
+all .25s ease;
+
+font-size:.82rem;
+
+}
+
+.device-grid span:hover{
+
+transform:
+translateY(-3px);
+
+background:
+rgba(124,58,237,.18);
+
+border-color:
+rgba(124,58,237,.30);
+
+}
+
+/* ---------------- Spinner ---------------- */
+
+.spinner{
+
+width:62px;
+
+height:62px;
+
+margin:40px auto;
+
+border-radius:50%;
+
+border:
+5px solid rgba(255,255,255,.08);
+
+border-top:
+5px solid #8b5cf6;
+
+animation:
+spin .8s linear infinite;
+
+}
+
+@keyframes spin{
+
+to{
+
+transform:
+rotate(360deg);
+
+}
+
+}
+
+/* ---------------- Entrance ---------------- */
+
+.card > :not(.spinner){
+
+animation:
+fadeUp .8s ease backwards;
+
+}
+
+.card > :not(.spinner):nth-child(1){animation-delay:.05s;}
+.card > :not(.spinner):nth-child(2){animation-delay:.15s;}
+.card > :not(.spinner):nth-child(3){animation-delay:.25s;}
+.card > :not(.spinner):nth-child(4){animation-delay:.35s;}
+.card > :not(.spinner):nth-child(5){animation-delay:.45s;}
+.card > :not(.spinner):nth-child(6){animation-delay:.55s;}
+
+@keyframes fadeUp{
+
+from{
+
+opacity:0;
+
+transform:
+translateY(20px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:none;
+
+}
+
+}
+
+/* ---------------- Mobile ---------------- */
+
+@media(max-width:700px){
+
+.card{
+
+padding:40px 28px;
+
+}
+
+.card h1{
+
+font-size:2.7rem;
+
+}
+
+button{
+
+width:100%;
+
+}
+
+.device-grid{
+
+grid-template-columns:
+repeat(2,1fr);
+
+}
+
+}

@@ -1,0 +1,63 @@
+/* ===========================================
+   ThatOneCloud Animations
+=========================================== */
+
+@keyframes fadeUp {
+
+    from {
+
+        opacity: 0;
+        transform: translateY(20px);
+
+    }
+
+    to {
+
+        opacity: 1;
+        transform: translateY(0);
+
+    }
+
+}
+
+@keyframes floatLogo {
+
+    0%,100% {
+
+        transform: translateY(0px);
+
+    }
+
+    50% {
+
+        transform: translateY(-8px);
+
+    }
+
+}
+
+@keyframes pulseButton {
+
+    0%,100% {
+
+        box-shadow: 0 0 25px rgba(124,58,237,.25);
+
+    }
+
+    50% {
+
+        box-shadow: 0 0 50px rgba(124,58,237,.55);
+
+    }
+
+}
+
+@keyframes spin {
+
+    to {
+
+        transform: rotate(360deg);
+
+    }
+
+}

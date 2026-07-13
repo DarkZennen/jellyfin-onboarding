@@ -1,0 +1,21 @@
+/* ===========================================
+   ThatOneCloud Page Styles
+=========================================== */
+
+.fade {
+
+    animation: fadeUp .7s ease;
+
+}
+
+.loading-page {
+
+    text-align: center;
+
+}
+
+.welcome-page {
+
+    text-align: center;
+
+}
