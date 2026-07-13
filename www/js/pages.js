@@ -25,6 +25,8 @@ progress(step) {
 
 welcome() {
 
+const invite = AppState.inviteCode;
+
 return `
 
 <div class="card fade">
@@ -33,6 +35,8 @@ return `
         class="logo floating"
         src="assets/logo/logo.png"
         alt="ThatOneCloud">
+
+    ${invite ? `<div class="invite-badge">🎟️ You've been invited</div>` : ""}
 
     <h1>
         Welcome to
@@ -56,9 +60,24 @@ return `
 
     <button id="startButton">
 
-        🚀 Get Started
+        ${invite ? "🎟️ Accept Invite &amp; Get Started" : "🚀 Get Started"}
 
     </button>
+
+    ${invite ? `
+
+    <div class="invite-qr">
+
+        <div id="inviteQrCode" class="qr-box"></div>
+
+        <p class="qr-caption">
+            Setting up on another device?
+            Scan this to create your account there.
+        </p>
+
+    </div>
+
+    ` : ""}
 
     <div class="supported">
 
@@ -215,6 +234,14 @@ ${Pages.progress(4)}
 <div class="server-box">
     <span id="serverUrlText">${CONFIG.serverUrl}</span>
     <button id="copyServerUrl" class="copy-btn">Copy</button>
+</div>
+
+<div class="server-qr">
+
+    <div id="serverQrCode" class="qr-box"></div>
+
+    <p class="qr-caption">Or scan to open on your phone</p>
+
 </div>
 
 <button id="openServerButton">Open ${CONFIG.appName} →</button>

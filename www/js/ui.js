@@ -8,6 +8,12 @@ const UI = {
 
         button.onclick = () => {
 
+            if (AppState.inviteCode) {
+
+                window.open(CONFIG.inviteUrl(AppState.inviteCode), "_blank");
+
+            }
+
             Router.show("loading");
 
             setTimeout(() => {
@@ -21,6 +27,12 @@ const UI = {
             }, 1500);
 
         };
+
+        if (AppState.inviteCode) {
+
+            QR.renderInto("inviteQrCode", CONFIG.inviteUrl(AppState.inviteCode));
+
+        }
 
     },
 
@@ -140,6 +152,8 @@ const UI = {
             };
 
         }
+
+        QR.renderInto("serverQrCode", CONFIG.serverUrl);
 
     },
 

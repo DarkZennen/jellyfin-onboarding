@@ -8,6 +8,14 @@ version:"0.5.0",
 
 serverUrl:"https://jellyfin.thatonecloud.com",
 
+wizarrUrl:"https://onboard.thatonecloud.com",
+
+inviteUrl(code){
+
+    return this.wizarrUrl.replace(/\/$/, "") + "/j/" + code;
+
+},
+
 installLinks:{
 
     android:{
