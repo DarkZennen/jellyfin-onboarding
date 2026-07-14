@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Syntax-check all JS files
+        run: |
+          for f in www/js/*.js; do
+            echo "Checking $f"
+            node --check "$f"
+          done
+
+      - name: Build Docker image (verify only, not published)
+        run: docker build -t thatonecloud:ci-test .
