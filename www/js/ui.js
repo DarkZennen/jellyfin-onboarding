@@ -68,7 +68,9 @@ const UI = {
 
                 if (option.dataset.method === "app") {
 
-                    const link = CONFIG.installLinks[AppState.device.id]
+                    const device = AppState.device || Detect.getDevice();
+
+                    const link = CONFIG.installLinks[device.id]
                         || CONFIG.installLinks.browser;
 
                     if (link && link.url) {
