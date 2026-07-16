@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/logo.png" alt="Jellyfin Onboarding logo" width="200">
+</p>
+
 # Jellyfin Onboarding
 
 A polished, self-detecting onboarding wizard for Jellyfin. Send someone
