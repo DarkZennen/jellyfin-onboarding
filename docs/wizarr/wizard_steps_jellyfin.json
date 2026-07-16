@@ -1,0 +1,28 @@
+{
+  "export_date": "2026-07-16T00:00:00.000000+00:00",
+  "export_type": "steps",
+  "steps": [
+    {
+      "server_type": "jellyfin",
+      "position": 0,
+      "title": "{{ _('What is Jellyfin?') }}",
+      "markdown": "## 🎬 {{ _('Welcome to Our Jellyfin Server') }}\n\n{{ _('Great news — you now have access to our **media library** through Jellyfin!') }}\n{{ widget:recently_added_media }}\n\n|||\n### 📺 {{ _('What is Jellyfin?') }}\n\n{{ _('Jellyfin is a free, open-source media server that lets people share their film and TV libraries with friends and family. If you\\'re here, it means you\\'ve been invited to join ours — welcome!') }}\n|||\n\n|||\n### 🎬 {{ _('What You\\'ll Get') }}\n- {{ _('Access to our constantly updated list of movies and shows') }}\n- {{ _('Watch on-demand or download for offline viewing') }}\n- {{ _('Personalised watchlists & recommendations') }}\n|||",
+      "requires": [],
+      "require_interaction": false,
+      "category": "post_invite"
+    },
+    {
+      "server_type": "jellyfin",
+      "position": 1,
+      "title": "{{ _('Get set up on your device') }}",
+      "markdown": "## 🚀 {{ _('You\\'re all set!') }}\n\n{{ _('Your account is ready. The last step is getting Jellyfin installed and connected on your device — we\\'ve built a quick guided setup that detects your device automatically and walks you through it.') }}\n\n{{ widget:button url=\"https://your-onboarding-domain/\" text=_(\"➡️ Continue Setup\") }}",
+      "requires": [],
+      "require_interaction": false,
+      "category": "post_invite"
+    }
+  ],
+  "total_count": 2,
+  "server_types": [
+    "jellyfin"
+  ]
+}

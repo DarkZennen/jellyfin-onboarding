@@ -177,6 +177,10 @@ reach the combined flow:
   their account. See Wizarr's own invite-step customization settings
   for where to add this.
 
+For a ready-to-use step template (works whether your Wizarr uses
+database-backed steps or the older JSON import), see
+[`docs/wizarr/README.md`](docs/wizarr/README.md).
+
 ## Releasing (CI/CD)
 
 This repo ships with GitHub Actions already wired up:
