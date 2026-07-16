@@ -34,6 +34,8 @@ jobs:
         with:
           context: .
           push: true
+          build-args: |
+            VERSION=${{ steps.version.outputs.version }}
           tags: |
             ghcr.io/darkzennen/thatonecloud:latest
             ghcr.io/darkzennen/thatonecloud:${{ steps.version.outputs.version }}
