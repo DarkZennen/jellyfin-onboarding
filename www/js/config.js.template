@@ -1,26 +1,31 @@
 // =============================================================
-// Jellyfin Onboarding — Configuration
+// Jellyfin Onboarding — Configuration (rendered at container startup)
 // =============================================================
-// This is the ONE file you need to edit to make Jellyfin Onboarding
-// point at YOUR Jellyfin server instead of the reference
-// deployment it was built for.
+// You should NOT normally need to edit this file directly — it's a
+// TEMPLATE. The actual values are supplied as environment variables
+// when the container starts (see docker-compose.yml / .env.example),
+// and get substituted into this file automatically to produce the
+// real config.js that's served to browsers.
 //
-// REQUIRED CHANGES:
-//   - serverUrl   -> your Jellyfin server's public URL
-//   - wizarrUrl   -> your Wizarr instance's public URL
-//                    (only if you use Wizarr for invites — if you
-//                    don't, you can leave this as-is; the invite
-//                    flow simply won't be used)
+// REQUIRED environment variables:
+//   JELLYFIN_SERVER_URL   -> your Jellyfin server's public URL
 //
-// OPTIONAL CHANGES:
-//   - appName / tagline -> your own branding
-//   - installLinks      -> only touch these if you want to point
-//                          at a different Jellyfin client (e.g. a
-//                          fork, or a different Android TV app)
+// OPTIONAL environment variables:
+//   WIZARR_URL            -> your Wizarr instance's public URL
+//                            (only if you use Wizarr for invites —
+//                            if you don't, leave the default; the
+//                            invite flow simply won't be used)
+//   SERVER_NAME            -> what your server is called, shown to
+//                            end users on the welcome screen and
+//                            "Open ___" buttons (e.g. "That One
+//                            Jellyfin", "The Smith Family Server")
+//
+// See .env.example for a ready-to-copy template of these variables.
 //
 // Everything below installLinks (DEVICE_CATALOG, TV_PLATFORMS,
 // MOBILE_PLATFORMS, INSTALL_INSTRUCTIONS) is generic and should
-// work for any Jellyfin deployment without changes.
+// work for any Jellyfin deployment without changes — these aren't
+// templated, since they're not deployment-specific.
 // =============================================================
 
 const CONFIG={
@@ -31,9 +36,11 @@ tagline:"Your Personal Streaming Service",
 
 version:"0.5.0",
 
-serverUrl:"https://jellyfin.thatonecloud.com",
+serverName:"${SERVER_NAME}",
 
-wizarrUrl:"https://onboard.thatonecloud.com",
+serverUrl:"${JELLYFIN_SERVER_URL}",
+
+wizarrUrl:"${WIZARR_URL}",
 
 inviteUrl(code){
 

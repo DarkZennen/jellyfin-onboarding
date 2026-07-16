@@ -26,12 +26,31 @@ fit the project's direction.
   platform (Windows/macOS/Linux), and a TV platform (Roku/Fire TV/Android
   TV/Apple TV) via the "Not this device?" picker. These three categories
   behave differently (see `TV_PLATFORMS` / `MOBILE_PLATFORMS` in
-  `www/js/config.js`) and it's easy to fix one path while silently
-  breaking another.
+  `www/js/config.js.template`) and it's easy to fix one path while
+  silently breaking another.
 
 ## Local development
 
-No build tooling needed — just serve the `www/` folder:
+No build tooling needed to serve the site — but since deployment
+config (`config.js`) is normally rendered from a template by Docker at
+container startup (see `docker-entrypoint.d/40-render-config.sh`), you
+need to render it once yourself for local testing outside Docker:
+
+```bash
+export JELLYFIN_SERVER_URL="https://jellyfin.yourdomain.com"
+export WIZARR_URL="https://invites.yourdomain.com"
+export SERVER_NAME="My Jellyfin Server"
+
+envsubst '${JELLYFIN_SERVER_URL} ${WIZARR_URL} ${SERVER_NAME}' \
+  < www/js/config.js.template > www/js/config.js
+```
+
+(No `envsubst`? It's part of the `gettext` package — `apt install
+gettext` / `brew install gettext` / `dnf install gettext`, or just
+hand-edit a copy of `config.js.template`, saved as `config.js`,
+replacing the three `${...}` placeholders yourself.)
+
+Then serve the folder:
 
 ```bash
 cd www

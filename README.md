@@ -88,42 +88,65 @@ all of that automatically, before anyone has to ask.
    cd jellyfin-onboarding
    ```
 
-2. **Configure it for your server** — edit `www/js/config.js`. At
-   minimum, set:
+2. **Configure it for your server:**
 
-   ```js
-   serverUrl:  "https://jellyfin.yourdomain.com",
-   wizarrUrl:  "https://invites.yourdomain.com",   // only if you use Wizarr
+   ```bash
+   cp .env.example .env
+   nano .env   # or your editor of choice
    ```
 
-   See the comments at the top of that file for the full list of what's
-   required vs. optional to change.
+   At minimum, set `JELLYFIN_SERVER_URL`. See `.env.example` for what
+   each variable does and which are optional. Nothing here gets
+   committed to git — `.env` is gitignored, so your real server
+   details stay local to your deployment.
 
 3. **Build and run:**
 
    ```bash
-   docker build -t jellyfin-onboarding .
-   docker run -d -p 8080:80 --name jellyfin-onboarding jellyfin-onboarding
+   docker compose up -d --build
    ```
 
-   Visit `http://localhost:8080` — you should see the welcome screen.
+   Or without Compose:
+
+   ```bash
+   docker build -t jellyfin-onboarding .
+   docker run -d -p 8080:80 --name jellyfin-onboarding \
+     -e JELLYFIN_SERVER_URL="https://jellyfin.yourdomain.com" \
+     -e WIZARR_URL="https://invites.yourdomain.com" \
+     -e SERVER_NAME="My Jellyfin Server" \
+     jellyfin-onboarding
+   ```
+
+   Visit `http://localhost:8080` — you should see the welcome screen,
+   with your server name already showing.
 
 4. **Put it behind your reverse proxy / domain** so people can actually
    reach it. The included `docker-compose.yml` has Traefik labels as a
    *worked example* from the reference deployment — you'll need to
-   adjust the network name, `Host()` rule, and cert resolver to match
-   your own setup, or replace the labels with whatever your reverse
-   proxy needs, or just expose the port directly if you don't use one.
+   adjust the network name and cert resolver to match your own setup,
+   or replace the labels with whatever your reverse proxy needs, or
+   just expose the port directly if you don't use one.
+
+### How configuration actually works
+
+Your settings aren't baked into the image at build time — they're
+read from environment variables **when the container starts**, and
+used to render `www/js/config.js` from `www/js/config.js.template`
+(see `docker-entrypoint.d/40-render-config.sh`). This is what makes it
+possible to configure a deployment purely through Docker environment
+variables — including, eventually, through an Unraid Community Apps
+template, where each variable becomes a field in the template's GUI.
 
 ### Deploying without Docker
 
 `www/` is a plain static site with no build step. Any static file host
 works — nginx, Apache, Caddy, GitHub Pages, Cloudflare Pages, a plain
-`python3 -m http.server`, whatever you've already got. The only two
-things to get right:
+`python3 -m http.server`, whatever you've already got. Two things to
+handle yourself, since they normally happen inside the container:
 
-- **Serve `www/` as the site root** (not a subdirectory) — some
-  internal links assume root-relative paths
+- **Render `config.js` from the template** — see
+  [`CONTRIBUTING.md`](CONTRIBUTING.md#local-development) for the
+  `envsubst` command, or hand-edit a copy of `config.js.template`
 - **Fetch the QR code library once**, since it's deliberately not
   committed to the repo:
 
@@ -132,8 +155,8 @@ things to get right:
     https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.0.3/qrcode.min.js
   ```
 
-  (If you use the provided `Dockerfile`, this happens automatically
-  during the build — nothing to do.)
+- **Serve `www/` as the site root** (not a subdirectory) — some
+  internal links assume root-relative paths
 
 ## Connecting Wizarr
 
@@ -173,7 +196,8 @@ First release only: go to your GitHub profile → **Packages** → the
 published package → settings → set visibility to **Public**, so
 anyone (including your own server) can pull it without authentication.
 
-Then on your server:
+Then on your server (with your real `.env` already in place — see
+[Quick start](#quick-start)):
 
 ```bash
 docker compose pull
@@ -187,12 +211,15 @@ www/                     static site (served by nginx in the container)
   index.html
   css/
   js/
-    config.js            <- the file you edit to customize this
+    config.js.template   <- rendered into config.js at container startup
   assets/
 docs/screenshots/         README images
+docker-entrypoint.d/       scripts run at container startup
+  40-render-config.sh      renders config.js from the template + env vars
 Dockerfile                 nginx:alpine, serves www/, stamps version on assets
 nginx.conf                 static-site nginx config (gzip, caching, security headers)
 docker-compose.yml         example service definition with Traefik labels
+.env.example               copy to .env and fill in your real values
 .github/workflows/         CI (build check) + Release (build & publish) automation
 ```
 
@@ -203,9 +230,13 @@ docker-compose.yml         example service definition with Traefik labels
   understand the reasoning and the code style.
 - **Device detection** (`www/js/detect.js`) runs entirely client-side
   based on `navigator.userAgent`.
-- **`www/js/config.js`** is the single source of truth for anything
-  deployment-specific: your server URL, your Wizarr URL, the device
-  catalog, and per-platform install instructions.
+- **`www/js/config.js.template`** is the single source of truth for
+  anything deployment-specific: your server URL, your Wizarr URL, your
+  server's display name, the device catalog, and per-platform install
+  instructions. The deployment-specific parts (server URL, Wizarr URL,
+  display name) are placeholders, rendered into the real `config.js` at
+  container startup from environment variables — see [How configuration
+  actually works](#how-configuration-actually-works).
 
 ## Contributing
 

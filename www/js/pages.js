@@ -39,7 +39,7 @@ return `
     <h1>
         Welcome to
         <br>
-        ${CONFIG.appName}
+        ${CONFIG.serverName}
     </h1>
 
     <p class="subtitle">
@@ -316,7 +316,7 @@ ${qrSection}
     📋 Server address copied! Paste it when Jellyfin asks for a server.
 </div>
 
-<button id="openServerButton" class="secondary-btn">Open ${CONFIG.appName} →</button>
+<button id="openServerButton" class="secondary-btn">Open ${CONFIG.serverName} →</button>
 
 <button id="continueInstall">Continue →</button>
 
@@ -402,7 +402,7 @@ ${Pages.progress(4)}
 
 ${qrSection}
 
-${isTvPlatform ? "" : `<button id="openServerButton">Open ${CONFIG.appName} →</button>`}
+${isTvPlatform ? "" : `<button id="openServerButton">Open ${CONFIG.serverName} →</button>`}
 
 <button id="continueServer" class="secondary-btn">I've Connected →</button>
 
@@ -425,11 +425,11 @@ ${Pages.progress(5)}
 <h2>🎉 You're All Set!</h2>
 
 <p class="description">
-    Enjoy ${CONFIG.appName}. If you ever need help again,
+    Enjoy ${CONFIG.serverName}. If you ever need help again,
     just reopen this link and we'll walk you through it.
 </p>
 
-<button id="openFinishedButton">Open ${CONFIG.appName} →</button>
+<button id="openFinishedButton">Open ${CONFIG.serverName} →</button>
 
 <button id="restartButton" class="secondary-btn">Start Over</button>
 

@@ -4,6 +4,9 @@ ARG VERSION=dev
 
 COPY www/ /usr/share/nginx/html/
 COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY docker-entrypoint.d/40-render-config.sh /docker-entrypoint.d/40-render-config.sh
+
+RUN chmod +x /docker-entrypoint.d/40-render-config.sh
 
 RUN wget -q -O /usr/share/nginx/html/js/vendor/qrcode.min.js \
       https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.0.3/qrcode.min.js

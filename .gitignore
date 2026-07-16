@@ -1,0 +1,12 @@
+# Real deployment values — never commit this. Copy .env.example instead.
+.env
+
+# The rendered config.js is generated at container startup from
+# config.js.template — it shouldn't be committed even if someone
+# generates it locally for testing.
+www/js/config.js
+
+# QR code library is fetched at build/dev time, not committed.
+www/js/vendor/qrcode.min.js
+
+.DS_Store

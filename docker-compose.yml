@@ -3,12 +3,16 @@ services:
     image: ghcr.io/darkzennen/jellyfin-onboarding:latest
     container_name: jellyfin-onboarding
     restart: unless-stopped
+    environment:
+      - JELLYFIN_SERVER_URL=${JELLYFIN_SERVER_URL}
+      - WIZARR_URL=${WIZARR_URL}
+      - SERVER_NAME=${SERVER_NAME}
     networks:
       - proxynet
     labels:
       - "traefik.enable=true"
 
-      - "traefik.http.routers.jellyfin-onboarding.rule=Host(`watch.thatonecloud.com`)"
+      - "traefik.http.routers.jellyfin-onboarding.rule=Host(`${ONBOARDING_DOMAIN}`)"
       - "traefik.http.routers.jellyfin-onboarding.entryPoints=https"
       - "traefik.http.routers.jellyfin-onboarding.tls=true"
       - "traefik.http.routers.jellyfin-onboarding.tls.certresolver=letsencrypt"
