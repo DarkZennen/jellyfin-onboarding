@@ -133,19 +133,23 @@ const UI = {
                     const link = CONFIG.installLinks[device.id]
                         || CONFIG.installLinks.browser;
 
-                    if (link && link.url) {
-
-                        window.open(link.url, "_blank");
-
-                    }
-
                     const toast = document.getElementById("installCopyToast");
 
                     navigator.clipboard.writeText(CONFIG.serverUrl).then(() => {
 
                         if (toast) toast.style.display = "flex";
 
-                    }).catch(() => {});
+                    }).catch((err) => {
+
+                        console.error("Clipboard write failed:", err);
+
+                    });
+
+                    if (link && link.url) {
+
+                        window.open(link.url, "_blank");
+
+                    }
 
                 }
 
