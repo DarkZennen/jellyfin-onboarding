@@ -1,19 +1,19 @@
 services:
-  thatonecloud:
-    image: ghcr.io/darkzennen/thatonecloud:latest
-    container_name: thatonecloud
+  jellyfin-onboarding:
+    image: ghcr.io/darkzennen/jellyfin-onboarding:latest
+    container_name: jellyfin-onboarding
     restart: unless-stopped
     networks:
       - proxynet
     labels:
       - "traefik.enable=true"
 
-      - "traefik.http.routers.thatonecloud.rule=Host(`watch.thatonecloud.com`)"
-      - "traefik.http.routers.thatonecloud.entryPoints=https"
-      - "traefik.http.routers.thatonecloud.tls=true"
-      - "traefik.http.routers.thatonecloud.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.jellyfin-onboarding.rule=Host(`watch.thatonecloud.com`)"
+      - "traefik.http.routers.jellyfin-onboarding.entryPoints=https"
+      - "traefik.http.routers.jellyfin-onboarding.tls=true"
+      - "traefik.http.routers.jellyfin-onboarding.tls.certresolver=letsencrypt"
 
-      - "traefik.http.services.thatonecloud.loadbalancer.server.port=80"
+      - "traefik.http.services.jellyfin-onboarding.loadbalancer.server.port=80"
 
 networks:
   proxynet:

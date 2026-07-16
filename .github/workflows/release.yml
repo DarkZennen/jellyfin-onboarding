@@ -37,5 +37,5 @@ jobs:
           build-args: |
             VERSION=${{ steps.version.outputs.version }}
           tags: |
-            ghcr.io/darkzennen/thatonecloud:latest
-            ghcr.io/darkzennen/thatonecloud:${{ steps.version.outputs.version }}
+            ghcr.io/darkzennen/jellyfin-onboarding:latest
+            ghcr.io/darkzennen/jellyfin-onboarding:${{ steps.version.outputs.version }}

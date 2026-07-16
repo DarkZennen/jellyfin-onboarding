@@ -32,7 +32,7 @@ return `
     <img
         class="logo floating"
         src="/assets/logo/logo.png"
-        alt="ThatOneCloud">
+        alt="Jellyfin Onboarding">
 
     ${invite ? `<div class="invite-badge">🎟️ You've been invited</div>` : ""}
 

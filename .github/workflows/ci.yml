@@ -26,4 +26,4 @@ jobs:
           done
 
       - name: Build Docker image (verify only, not published)
-        run: docker build -t thatonecloud:ci-test .
+        run: docker build -t jellyfin-onboarding:ci-test .

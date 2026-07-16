@@ -1,6 +1,31 @@
+// =============================================================
+// Jellyfin Onboarding — Configuration
+// =============================================================
+// This is the ONE file you need to edit to make Jellyfin Onboarding
+// point at YOUR Jellyfin server instead of the reference
+// deployment it was built for.
+//
+// REQUIRED CHANGES:
+//   - serverUrl   -> your Jellyfin server's public URL
+//   - wizarrUrl   -> your Wizarr instance's public URL
+//                    (only if you use Wizarr for invites — if you
+//                    don't, you can leave this as-is; the invite
+//                    flow simply won't be used)
+//
+// OPTIONAL CHANGES:
+//   - appName / tagline -> your own branding
+//   - installLinks      -> only touch these if you want to point
+//                          at a different Jellyfin client (e.g. a
+//                          fork, or a different Android TV app)
+//
+// Everything below installLinks (DEVICE_CATALOG, TV_PLATFORMS,
+// MOBILE_PLATFORMS, INSTALL_INSTRUCTIONS) is generic and should
+// work for any Jellyfin deployment without changes.
+// =============================================================
+
 const CONFIG={
 
-appName:"ThatOneCloud",
+appName:"Jellyfin Onboarding",
 
 tagline:"Your Personal Streaming Service",
 
