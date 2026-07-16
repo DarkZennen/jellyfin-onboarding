@@ -40,19 +40,81 @@ const UI = {
 
         const button = document.getElementById("continueButton");
 
-        if (!button) return;
+        if (button) {
 
-        button.onclick = () => {
+            button.onclick = () => {
 
-            AppState.currentStep = 3;
+                AppState.currentStep = 3;
 
-            Router.show("install");
+                Router.show("install");
 
-        };
+            };
+
+        }
+
+        const notThisDevice = document.getElementById("notThisDevice");
+
+        if (notThisDevice) {
+
+            notThisDevice.onclick = () => {
+
+                Router.show("choosePlatform");
+
+            };
+
+        }
+
+    },
+
+    bindChoosePlatform() {
+
+        const options = document.querySelectorAll(".device-option");
+
+        options.forEach(option => {
+
+            option.onclick = () => {
+
+                const chosen = DEVICE_CATALOG.find(d => d.id === option.dataset.id);
+
+                if (!chosen) return;
+
+                AppState.device = chosen;
+
+                AppState.currentStep = 3;
+
+                Router.show("install");
+
+            };
+
+        });
+
+        const backBtn = document.getElementById("backToDetected");
+
+        if (backBtn) {
+
+            backBtn.onclick = () => {
+
+                AppState.currentStep = 2;
+
+                Router.show("device");
+
+            };
+
+        }
 
     },
 
     bindInstall() {
+
+        const device = AppState.device || Detect.getDevice();
+
+        const isTvPlatform = TV_PLATFORMS.includes(device.id);
+
+        if (isTvPlatform) {
+
+            AppState.installMethod = "app";
+
+        }
 
         const options = document.querySelectorAll(".install-option");
 
@@ -68,8 +130,6 @@ const UI = {
 
                 if (option.dataset.method === "app") {
 
-                    const device = AppState.device || Detect.getDevice();
-
                     const link = CONFIG.installLinks[device.id]
                         || CONFIG.installLinks.browser;
 
@@ -79,11 +139,61 @@ const UI = {
 
                     }
 
+                    const toast = document.getElementById("installCopyToast");
+
+                    navigator.clipboard.writeText(CONFIG.serverUrl).then(() => {
+
+                        if (toast) toast.style.display = "flex";
+
+                    }).catch(() => {});
+
                 }
 
             };
 
         });
+
+        if (!isTvPlatform) {
+
+            const copyBtn = document.getElementById("copyServerUrl");
+
+            if (copyBtn) {
+
+                copyBtn.onclick = () => {
+
+                    navigator.clipboard.writeText(CONFIG.serverUrl).then(() => {
+
+                        copyBtn.textContent = "Copied!";
+
+                        setTimeout(() => { copyBtn.textContent = "Copy"; }, 1500);
+
+                    }).catch(() => {
+
+                        copyBtn.textContent = "Couldn't copy";
+
+                        setTimeout(() => { copyBtn.textContent = "Copy"; }, 1500);
+
+                    });
+
+                };
+
+            }
+
+            const openBtn = document.getElementById("openServerButton");
+
+            if (openBtn) {
+
+                openBtn.onclick = () => window.open(CONFIG.serverUrl, "_blank");
+
+            }
+
+            if (!MOBILE_PLATFORMS.includes(device.id)) {
+
+                QR.renderInto("serverQrCode", continueOnPhoneUrl());
+
+            }
+
+        }
 
         const button = document.getElementById("continueInstall");
 
@@ -99,9 +209,19 @@ const UI = {
 
             }
 
-            AppState.currentStep = 4;
+            if (isTvPlatform) {
 
-            Router.show("server");
+                AppState.currentStep = 4;
+
+                Router.show("server");
+
+            } else {
+
+                AppState.currentStep = 4;
+
+                Router.show("finished");
+
+            }
 
         };
 
@@ -155,7 +275,13 @@ const UI = {
 
         }
 
-        QR.renderInto("serverQrCode", CONFIG.serverUrl);
+        const device = AppState.device || Detect.getDevice();
+
+        if (!TV_PLATFORMS.includes(device.id) && !MOBILE_PLATFORMS.includes(device.id)) {
+
+            QR.renderInto("serverQrCode", continueOnPhoneUrl());
+
+        }
 
     },
 

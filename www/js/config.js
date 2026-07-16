@@ -53,11 +53,80 @@ installLinks:{
         label:"Add the Roku Channel"
     },
 
+    androidtv:{
+        url:"https://play.google.com/store/apps/details?id=org.jellyfin.androidtv",
+        label:"Get it on Google Play (Android TV / Google TV)"
+    },
+
+    appletv:{
+        url:"https://apps.apple.com/us/app/swiftfin/id1604098728",
+        label:"Download Swiftfin on the App Store"
+    },
+
     browser:{
         url:null,
         label:"No install needed"
     }
 
 }
+
+};
+
+const DEVICE_CATALOG=[
+
+    { id:"android",   icon:"📱", name:"Android",              description:"Phone or tablet running Android." },
+    { id:"ios",       icon:"🍎", name:"iPhone / iPad",         description:"Apple phone or tablet." },
+    { id:"windows",   icon:"🖥️", name:"Windows",               description:"Windows PC or laptop." },
+    { id:"macos",     icon:"🍎", name:"macOS",                 description:"Mac desktop or laptop." },
+    { id:"linux",     icon:"🐧", name:"Linux Desktop",         description:"Linux PC or laptop." },
+    { id:"firetv",    icon:"🔥", name:"Fire TV",               description:"Amazon Fire TV or Fire TV Stick." },
+    { id:"roku",      icon:"📺", name:"Roku",                  description:"Roku streaming device or Roku TV." },
+    { id:"androidtv", icon:"📺", name:"Android TV / Google TV",description:"Android TV, Google TV, or Nvidia Shield." },
+    { id:"appletv",   icon:"📺", name:"Apple TV",              description:"Apple TV 4K or HD, via Swiftfin." },
+    { id:"browser",   icon:"🌐", name:"Web Browser",           description:"Watch right in your browser, no install." }
+
+];
+
+const TV_PLATFORMS = ["firetv", "roku", "androidtv", "appletv"];
+
+const MOBILE_PLATFORMS = ["android", "ios"];
+
+function continueOnPhoneUrl() {
+
+    const origin = window.location.origin;
+
+    const invite = AppState.inviteCode;
+
+    return origin + "/" + (invite ? ("?invite=" + encodeURIComponent(invite)) : "");
+
+}
+
+const INSTALL_INSTRUCTIONS = {
+
+    firetv: [
+        "On your Fire TV remote, press Home.",
+        "Go to Find → Search.",
+        "Search for \"Jellyfin\" and select it.",
+        "Select Get / Download, then Open once it's installed."
+    ],
+
+    roku: [
+        "On your Roku remote, press Home.",
+        "Go to Streaming Channels → Search Channels.",
+        "Search for \"Jellyfin\" and select it.",
+        "Select Add Channel, then open it once it's installed."
+    ],
+
+    androidtv: [
+        "On your Android TV / Google TV, open the Google Play Store app.",
+        "Search for \"Jellyfin\".",
+        "Select Install, then Open once it's installed."
+    ],
+
+    appletv: [
+        "On your Apple TV, open the App Store app.",
+        "Search for \"Swiftfin\" (Jellyfin's official Apple TV app).",
+        "Select Get, then Open once it's installed."
+    ]
 
 };

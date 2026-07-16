@@ -136,8 +136,8 @@
 .server-box {
 
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: stretch;
     gap: 12px;
     background: rgba(255,255,255,.04);
     border: 1px solid rgba(255,255,255,.06);
@@ -151,14 +151,14 @@
 
     font-size: .88rem;
     color: var(--text);
-    word-break: break-all;
+    word-break: break-word;
     text-align: left;
 
 }
 
 .copy-btn {
 
-    flex-shrink: 0;
+    width: 100%;
     padding: 8px 16px;
     font-size: .8rem;
     border-radius: 10px;
@@ -190,10 +190,129 @@
 }
 
 #openServerButton,
-#openFinishedButton {
+#openFinishedButton,
+#continueButton,
+#continueInstall {
 
     width: 100%;
     margin-bottom: 4px;
+
+}
+
+/* ===========================================
+   Device Picker (manual "not this device" flow)
+=========================================== */
+
+.device-picker-list {
+
+    max-height: 340px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+
+}
+
+.device-option {
+
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    text-align: left;
+    padding: 14px 18px;
+    margin-bottom: 10px;
+    border-radius: 16px;
+    background: rgba(255,255,255,.03);
+    border: 1px solid rgba(255,255,255,.06);
+    cursor: pointer;
+    transition: .2s;
+
+}
+
+.device-option:hover {
+
+    background: rgba(255,255,255,.06);
+    transform: translateY(-1px);
+    border-color: rgba(124,58,237,.4);
+
+}
+
+.device-option-icon {
+
+    font-size: 1.3rem;
+    flex-shrink: 0;
+
+}
+
+.device-option-text {
+
+    display: flex;
+    flex-direction: column;
+
+}
+
+.device-option-text strong {
+
+    color: #fff;
+    font-size: .95rem;
+
+}
+
+.device-option-text span {
+
+    color: var(--muted);
+    font-size: .8rem;
+    margin-top: 2px;
+
+}
+
+/* ===========================================
+   TV Platform Install Instructions
+=========================================== */
+
+.tv-steps {
+
+    text-align: left;
+    margin-bottom: 24px;
+
+}
+
+.tv-step {
+
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 12px 4px;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+
+}
+
+.tv-step:last-child {
+
+    border-bottom: none;
+
+}
+
+.tv-step-number {
+
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: linear-gradient(90deg,var(--purple),var(--purple2));
+    color: #fff;
+    font-size: .8rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.tv-step-text {
+
+    color: var(--text);
+    font-size: .92rem;
+    line-height: 1.5;
+    padding-top: 2px;
 
 }
 
@@ -257,8 +376,76 @@
 
 }
 
+/* ===========================================
+   Clipboard copy confirmation toast (install step)
+=========================================== */
+
+.copy-toast {
+
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: rgba(34,197,94,.12);
+    border: 1px solid rgba(34,197,94,.35);
+    color: #86efac;
+    font-size: .82rem;
+    border-radius: 12px;
+    padding: 10px 14px;
+    margin-top: 4px;
+    margin-bottom: 20px;
+
+}
+
+.already-copied-hint {
+
+    color: #86efac;
+    font-size: .82rem;
+
+}
+
 .server-qr {
 
     margin-bottom: 20px;
+
+}
+
+/* ===========================================
+   Quick Connect tip (TV platforms, server step)
+=========================================== */
+
+.quickconnect-tip {
+
+    text-align: left;
+    background: rgba(124,58,237,.1);
+    border: 1px solid rgba(124,58,237,.3);
+    border-radius: 16px;
+    padding: 16px 18px;
+    margin-bottom: 20px;
+
+}
+
+.quickconnect-tip strong {
+
+    color: #fff;
+    font-size: .92rem;
+    display: block;
+    margin-bottom: 6px;
+
+}
+
+.quickconnect-tip p {
+
+    color: var(--muted);
+    font-size: .85rem;
+    line-height: 1.5;
+    margin: 0;
+
+}
+
+.quickconnect-tip p strong {
+
+    display: inline;
+    color: #cbb9ff;
+    margin: 0;
 
 }

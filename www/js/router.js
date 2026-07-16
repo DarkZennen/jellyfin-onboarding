@@ -26,6 +26,10 @@ const Router = {
                 UI.bindDevice();
                 break;
 
+            case "choosePlatform":
+                UI.bindChoosePlatform();
+                break;
+
             case "install":
                 UI.bindInstall();
                 break;
